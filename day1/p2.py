@@ -1,5 +1,5 @@
-file1 = open('input2.txt', 'r')
-lines = list(map(int,map(str.strip, file1.readlines())))
+input = open('input2.txt', 'r')
+lines = list(map(int,map(str.strip, input.readlines())))
 
 cnt = 0
 prevDepth = sum(lines[0:3])
