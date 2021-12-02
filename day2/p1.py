@@ -8,7 +8,7 @@ data = {
 }
 for line in lines:
     (dir,num) = line.split( " " )
-    data[dir] = int(num)
+    data[dir] += int(num)
 
 #print( data )
 result = data['forward'] * ( data['down'] - data['up'])

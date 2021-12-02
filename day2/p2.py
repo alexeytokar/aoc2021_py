@@ -18,6 +18,6 @@ for line in lines:
         data['forward'] += num
         data['depth'] += data['aim'] * num
 
-print( data )
+# print( data )
 result = data['depth'] * data['forward']
 print( result )
