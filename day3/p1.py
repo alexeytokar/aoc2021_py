@@ -4,22 +4,17 @@ lines = list(map(str.strip, input.readlines()))
 
 result = None
 total = len(lines)
-gamma = [0,0,0,0,0,0,0,0,0,0,0,0]
+gamma = [0]*len(lines[0])
 
 for line in lines:
-    print( len( line ) ) 
     for i in range(len(line)):
         gamma[i] += int(line[i])
 
 result = ""
 result_r = ""
 for g in gamma:
-    if g > total/2:
-        result += "1"
-        result_r += "0"
-    else:
-        result += "0"
-        result_r += "1"
+    result += "1" if g > total/2 else "0"
+    result_r += "1" if g < total/2 else "0"
 
 print( gamma )
 print( result )
