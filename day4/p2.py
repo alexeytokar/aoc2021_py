@@ -7,12 +7,7 @@ boards_num = 100
 boards = [None]*boards_num # [ { sum :, rows: [ numcrossed ], cols: [ numcrossed ], nums:[] } ]
 nums = {} # { 'num' : [ (boardid, colid, rowid) ] }
 
-line = input.readline() #blank
-
-board_idx = 0
-col_idx = 0
-row_idx = 0
-boards[board_idx] = { "sum" : 0, "rows" : [0]*5, "cols": [0]*5, "nums" : []*25 }
+board_idx = -1
 while line:
     line = input.readline()
     if not line.strip():
@@ -20,12 +15,11 @@ while line:
         col_idx = 0
         row_idx = 0
         if board_idx < boards_num:
-            boards[board_idx] = { "sum" : 0, "rows" : [0]*5, "cols": [0]*5, "nums" : []*25 }
+            boards[board_idx] = { "rows" : [0]*5, "cols": [0]*5, "nums" : []*25 }
     else:
         
         rnums = list(map(int, re.split(" +",line.strip())))
         for n in rnums:
-            boards[board_idx]['sum'] += n
             boards[board_idx]['nums'].append( n )
             if n not in nums:
                 nums[n] = []
