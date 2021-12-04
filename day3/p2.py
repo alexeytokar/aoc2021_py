@@ -9,10 +9,8 @@ for i in range(len(lines[0])):
         if line.startswith(pattern):
             total += 1
             ooo += int(line[i])
-
     
     pattern += "0" if ooo < (total/2) else "1"
-
 
 r1 = int(pattern,2)
 
@@ -33,7 +31,7 @@ for i in range(len(lines[0])):
         pattern = lastLine
     else:
         pattern += "0" if ooo >= (total/2) else "1"
-        
+       
 
 r2 = int(pattern,2)
 
