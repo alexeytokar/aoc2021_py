@@ -5,8 +5,6 @@ input = open('input1.txt', 'r')
 line = input.readline()
 vals = list(map(int, line.strip().split(",")))
 
-print( vals )
-
 buckets = [0]*9
 
 for v in vals:
@@ -18,6 +16,5 @@ for i in range(256):
         buckets[b-1] = buckets[b]
     buckets[6] = buckets[6] + tmp
     buckets[8] = tmp
-    print( i, buckets )
 
 print( sum(buckets))
