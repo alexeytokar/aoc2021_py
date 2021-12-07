@@ -1,6 +1,3 @@
-# 8:10
-# 8.17
-# 8.18
 input = open('input1.txt', 'r')
 line = input.readline()
 vals = list(map(int, line.strip().split(",")))
