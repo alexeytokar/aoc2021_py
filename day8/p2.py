@@ -1,11 +1,7 @@
-input = open('input1.txt', 'r')
-lines = input.readlines()
-cnt = 0;
-
-def mis(o,num):
+def extractPart(o,num):
     return set(o)^set(num)
 
-def cnt(o,num):
+def hasMatch(o,num):
     return len(set(o).intersection(list(num))) == len(num)
 
 def code2int( parts, codemap ):
@@ -16,18 +12,13 @@ def code2int( parts, codemap ):
     return int(numstr)
 
 def nums2map(nums):
-    maps = {}
-    for n in range(len(nums)):
-        maps[nums[n]] = n
-
-    return maps
+    return { nums[n] : n for n in range(len(nums))}
 
 def processLen6( input, nums ):
-    for o in input:
-        if len(o) == 6:
-            if cnt(o,nums[3]):
+    for o in filter( lambda l: len(l) == 6, input):
+            if hasMatch(o,nums[3]):
                 nums[9] = o
-            elif cnt(o,nums[5]):
+            elif hasMatch(o,nums[5]):
                 nums[6] = o
             else:
                 nums[0] = o
@@ -35,14 +26,13 @@ def processLen6( input, nums ):
     return nums
 
 def processLen5(input, nums):
-    for o in input:
-        if len(o) == 5:
-            if cnt(o,nums[1]):
-                nums[3] = o
-            elif cnt(o,mis(nums[4],nums[1])):
-                nums[5] = o
-            else:
-                nums[2] = o
+    for o in filter( lambda l: len(l) == 5, input):
+        if hasMatch(o,nums[1]):
+            nums[3] = o
+        elif hasMatch(o,extractPart( nums[4], nums[1])):
+            nums[5] = o
+        else:
+            nums[2] = o
 
     return nums  
 
@@ -63,14 +53,10 @@ def splitInput( input ):
     return (left, right)
 
 def prepareData( input ):
-    ov = []
-    for l in input:
-        ov.append( ''.join(sorted(l)) )
-
-    return ov
+    return list(map( lambda l: ''.join(sorted(l)), input ))
 
 result = 0
-for line in lines:
+for line in open('input1.txt', 'r').readlines():
     (left,right) = splitInput( line )
     
     ov = prepareData( left )
