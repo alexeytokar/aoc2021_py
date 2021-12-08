@@ -3,13 +3,10 @@ lines = input.readlines()
 cnt = 0;
 
 def mis(o,num):
-    return list(set(list(o))^set(list(num)))
+    return set(o)^set(num)
 
 def cnt(o,num):
-    l = list(o)
-    n = list(num)
-
-    return len(list(set(l).intersection(n))) == len(num)
+    return len(set(o).intersection(list(num))) == len(num)
 
 def code2int( parts, codemap ):
     numstr = ""
