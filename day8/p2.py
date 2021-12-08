@@ -12,11 +12,11 @@ def cnt(o,num):
     return len(list(set(l).intersection(n))) == len(num)
 
 def code2int( parts, codemap ):
-    tt = ""
+    numstr = ""
     for r in parts:
         s = ''.join(sorted(r))
-        tt = tt + str(codemap[s])
-    return int(tt)
+        numstr = numstr + str(codemap[s])
+    return int(numstr)
 
 def nums2map(nums):
     maps = {}
@@ -25,7 +25,7 @@ def nums2map(nums):
 
     return maps
 
-def process6( input, nums ):
+def processLen6( input, nums ):
     for o in input:
         if len(o) == 6:
             if cnt(o,nums[3]):
@@ -37,7 +37,7 @@ def process6( input, nums ):
 
     return nums
 
-def process5(input, nums):
+def processLen5(input, nums):
     for o in input:
         if len(o) == 5:
             if cnt(o,nums[1]):
@@ -79,8 +79,8 @@ for line in lines:
     ov = prepareData( left )
     
     nums = processSimplest( ov )
-    nums = process5( ov, nums )
-    nums = process6( ov, nums )
+    nums = processLen5( ov, nums )
+    nums = processLen6( ov, nums )
 
     maps = nums2map(nums)
     result = result + code2int( right, maps )
