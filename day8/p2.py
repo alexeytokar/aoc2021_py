@@ -11,32 +11,22 @@ def cnt(o,num):
 
     return len(list(set(l).intersection(n))) == len(num)
 
-ssssum = 0
-for line in lines:
-    p = line.strip().split(" | ")
-    right = p[1].split( " " )
-    left = p[0].split( " " )
+def code2int( parts, codemap ):
+    tt = ""
+    for r in parts:
+        s = ''.join(sorted(r))
+        tt = tt + str(codemap[s])
+    return int(tt)
 
-    nums = [""]*10
-    ov = []
-    size2idx = {2:1,3:7,4:4,7:8}
-    for li in left:
-        li = ''.join(sorted(li))
-        if len(li) in size2idx:
-            nums[size2idx[len(li)]] = li
-        else:
-            ov.append(li)
+def nums2map(nums):
+    maps = {}
+    for n in range(len(nums)):
+        maps[nums[n]] = n
 
-    for o in ov:
-        if len(o) == 5:
-            if cnt(o,nums[1]):
-                nums[3] = o
-            elif cnt(o,mis(nums[4],nums[1])):
-                nums[5] = o
-            else:
-                nums[2] = o
-    
-    for o in ov:
+    return maps
+
+def process6( input, nums ):
+    for o in input:
         if len(o) == 6:
             if cnt(o,nums[3]):
                 nums[9] = o
@@ -45,19 +35,54 @@ for line in lines:
             else:
                 nums[0] = o
 
-    maps = {}
-    for n in range(len(nums)):
-        maps[nums[n]] = n
+    return nums
 
+def process5(input, nums):
+    for o in input:
+        if len(o) == 5:
+            if cnt(o,nums[1]):
+                nums[3] = o
+            elif cnt(o,mis(nums[4],nums[1])):
+                nums[5] = o
+            else:
+                nums[2] = o
 
-    tt = ""
-    for r in right:
-        s = ''.join(sorted(r))
-        tt = tt + str(maps[s])
-    ssssum = ssssum + int(tt)
+    return nums  
 
+def processSimplest( input ):
+    nums = [""]*10
+    size2idx = {2:1,3:7,4:4,7:8}
+    for li in input:
+        if len(li) in size2idx:
+            nums[size2idx[len(li)]] = li
 
+    return nums
 
+def splitInput( input ):
+    p = input.strip().split(" | ")
+    right = p[1].split( " " )
+    left = p[0].split( " " )
 
+    return (left, right)
 
-print( ssssum )
+def prepareData( input ):
+    ov = []
+    for l in input:
+        ov.append( ''.join(sorted(l)) )
+
+    return ov
+
+result = 0
+for line in lines:
+    (left,right) = splitInput( line )
+    
+    ov = prepareData( left )
+    
+    nums = processSimplest( ov )
+    nums = process5( ov, nums )
+    nums = process6( ov, nums )
+
+    maps = nums2map(nums)
+    result = result + code2int( right, maps )
+
+print( result )
