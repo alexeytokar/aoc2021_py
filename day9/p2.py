@@ -19,7 +19,7 @@ for r in range(len(matrix)):
         if matrix[r][c] == 9 or basins_idx[r][c] > 0: 
             continue
 
-        vis = {(r, c)}
+        visited = {(r, c)}
         
         q = deque()
         q.append((r, c))
@@ -28,12 +28,12 @@ for r in range(len(matrix)):
             basins_idx[r][c] = b_idx
 
             for i, j in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
-                if (i, j) in vis: 
+                if (i, j) in visited: 
                     continue
 
                 if 0 <= i < len(matrix) and 0 <= j < len(matrix[i]):
                     if matrix[i][j] != 9:
-                        vis.add((i, j))
+                        visited.add((i, j))
                         q.append((i, j))
         b_idx += 1
 
